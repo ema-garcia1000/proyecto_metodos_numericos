@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities_Metodos">
+    <EntitySetMapping Name="MULLER">
+      <EntityTypeMapping TypeName="Model.MULLER">
+        <MappingFragment StoreEntitySet="MULLER">
+          <ScalarProperty Name="IDMULLER" ColumnName="IDMULLER" />
+          <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
+          <ScalarProperty Name="ECUACION" ColumnName="ECUACION" />
+          <ScalarProperty Name="X0" ColumnName="X0" />
+          <ScalarProperty Name="X1" ColumnName="X1" />
+          <ScalarProperty Name="X2" ColumnName="X2" />
+          <ScalarProperty Name="XI" ColumnName="XI" />
+          <ScalarProperty Name="EAA" ColumnName="EAA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NEWTON">
+      <EntityTypeMapping TypeName="Model.NEWTON">
+        <MappingFragment StoreEntitySet="NEWTON">
+          <ScalarProperty Name="IDNEWTON" ColumnName="IDNEWTON" />
+          <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
+          <ScalarProperty Name="ECUACION" ColumnName="ECUACION" />
+          <ScalarProperty Name="X0" ColumnName="X0" />
+          <ScalarProperty Name="XI" ColumnName="XI" />
+          <ScalarProperty Name="EAA" ColumnName="EAA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SECANTE">
+      <EntityTypeMapping TypeName="Model.SECANTE">
+        <MappingFragment StoreEntitySet="SECANTE">
+          <ScalarProperty Name="IDSECANTE" ColumnName="IDSECANTE" />
+          <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
+          <ScalarProperty Name="ECUACION" ColumnName="ECUACION" />
+          <ScalarProperty Name="X0" ColumnName="X0" />
+          <ScalarProperty Name="X1" ColumnName="X1" />
+          <ScalarProperty Name="XI" ColumnName="XI" />
+          <ScalarProperty Name="EAA" ColumnName="EAA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USUARIO">
+      <EntityTypeMapping TypeName="Model.USUARIO">
+        <MappingFragment StoreEntitySet="USUARIO">
+          <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
+          <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+          <ScalarProperty Name="PASSWORDC" ColumnName="PASSWORDC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GAUSS3X3">
+      <EntityTypeMapping TypeName="Model.GAUSS3X3">
+        <MappingFragment StoreEntitySet="GAUSS3X3">
+          <ScalarProperty Name="Z" ColumnName="Z" />
+          <ScalarProperty Name="Y" ColumnName="Y" />
+          <ScalarProperty Name="X" ColumnName="X" />
+          <ScalarProperty Name="DATOSMATRIZ" ColumnName="DATOSMATRIZ" />
+          <ScalarProperty Name="TIPOMATRIZ" ColumnName="TIPOMATRIZ" />
+          <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
+          <ScalarProperty Name="IDGAUSS" ColumnName="IDGAUSS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

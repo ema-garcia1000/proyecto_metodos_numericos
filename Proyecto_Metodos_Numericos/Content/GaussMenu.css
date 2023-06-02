@@ -1,0 +1,26 @@
+﻿.btn-group2 button {
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn-group2 .btn-2x2 {
+    background: blue;
+}
+
+.btn-group2 .btn-3x3 {
+    background: dodgerblue;
+}
+
+.btn-group2 .btn-4x4 {
+    background: deepskyblue;
+}
+
+.espacioBtnMatriz {
+    margin-top: 40px;
+}
+

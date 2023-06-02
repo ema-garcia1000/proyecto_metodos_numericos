@@ -1,0 +1,329 @@
+﻿
+@{
+    ViewBag.Title = "Método de Gauss - Matriz 3x3";
+}
+
+<link rel="stylesheet" href="~/Content/Index.css" />
+<link rel="stylesheet" href="~/Content/GaussMenu.css" />
+
+<div class="espacio"></div>
+
+<div class="container" id="pdf-content">
+    <div class="left-section">
+        <div class="espacio"></div>
+        <div class="btn-group">
+            <button class="btn-newton" onclick="seleccionMetodo('Newton Raphson')">Método Newton Raphson</button>
+            <button class="btn-secante" onclick="seleccionMetodo('la Secante')">Método la Secante</button>
+            <button class="btn-muller" onclick="seleccionMetodo('Müller')">Método Muller</button>
+            <button class="btn-gauss" onclick="seleccionMetodo('Gauss')">Método Gauss</button>
+        </div>
+        <button class="btn-descargar" type="button" onclick="descargarPDF()">Descargar PDF</button>
+        <button class="btn-salir-rojo" onclick="cerrar_sesion()">Cerrar sesión</button>
+    </div>
+    <div class="right-section">
+        <h2 class="title">Matriz 3x3</h2>
+
+        <div id="inputsMatriz">
+            <form name="sist0">
+
+                <input type="text" size="3">x+
+
+                <input type="text" size="3">y+
+
+                <input type="text" size="3">z=
+
+                <input type="text" size="3"><BR>
+
+                <input type="text" size="3">x+
+
+                <input type="text" size="3">y+
+
+                <input type="text" size="3">z=
+
+                <input type="text" size="3"><BR>
+
+                <input type="text" size="3">x+
+
+                <input type="text" size="3">y+
+
+                <input type="text" size="3">z=
+
+                <input type="text" size="3">
+
+                <input class="btn-calcular" type="button" value="Gauss" onClick="gauss()">
+
+            </form>
+
+            <BR><BR>
+
+            <form name="sist1">
+
+                <input type="text" size="3">x+
+
+                <input type="text" size="3">y+
+
+                <input type="text" size="3">z=
+
+                <input type="text" size="3"><BR>
+
+                <input type="text" size="3">x+
+
+                <input type="text" size="3">y+
+
+                <input type="text" size="3">z=
+
+                <input type="text" size="3"><BR>
+
+                <input type="text" size="3">x+
+
+                <input type="text" size="3">y+
+
+                <input type="text" size="3">z=
+
+                <input type="text" size="3"> <BR><BR>
+
+            </form>
+
+            <form name="sist2">
+
+                <input type="text" size="3">x+
+
+                <input type="text" size="3">y+
+
+                <input type="text" size="3">z=
+
+                <input type="text" size="3"><BR>
+
+                <input type="text" size="3">x+
+
+                <input type="text" size="3">y+
+
+                <input type="text" size="3">z=
+
+                <input type="text" size="3"><BR>
+
+                <input type="text" size="3">x+
+
+                <input type="text" size="3">y+
+
+                <input type="text" size="3">z=
+
+                <input type="text" size="3">
+
+                <BR><BR>
+                <input class="btn-calcular" type="button" value="Resolver" onClick="res()">
+
+            </form>
+        </div>
+
+        <div class="results-section">
+            <h4 class="result-title">Resultados</h4>
+            <table id="tabla-gauss">
+                <thead id="encabezados">
+                    <tr>
+                        <td>x</td>
+                        <td>y</td>
+                        <td>z</td>
+                    </tr>
+                </thead>
+                <tbody id="results-gauss">
+                    <!-- Se mostrará el resultado de cada operación -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="espacio"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+<script>
+    //Para almacenar el id del usuario actual
+    var idUsuario = "";
+
+    //Para que cada vez que se recargue la pagina valide si hay un usuario logueado
+    document.addEventListener('DOMContentLoaded', () => {
+        //Verificamos si no hay ningun usuario en el local storage
+        if (obtener_usuario_local_storage().length === 0) {
+            //Nos redirigimos a la vista Login
+            window.location = "../Home/Login";
+        }
+    });
+
+    //Función para escoger el método
+    function seleccionMetodo(metodo) {
+        // Mostrar la vista correspondiente al método seleccionado
+        if (metodo === 'Newton Raphson') {
+            //Nos redirigimos a la vista NewtonRaphson
+            window.location = "../Home/NewtonRaphson";
+        } else if (metodo === 'la Secante') {
+            //Nos redirigimos a la vista Secante
+            window.location = "../Home/Secante";
+        } else if (metodo === 'Müller') {
+            //Nos redirigimos a la vista Muller
+            window.location = "../Home/Muller";
+        } else if (metodo === 'Gauss') {
+            //Nos redirigimos a la vista Gauss3x3
+            window.location = "../Home/Gauss3x3";
+        }
+    }
+
+    //Codigo para hacer el calculo de gauss
+    var a = new Array(3), b = new Array(3), c = new Array(3)
+
+    var i, j
+
+    function gauss() {
+        for (i = 1; i <= 3; i++) {
+            a[i] = [0, 0, 0, 0], b[i] = [0, 0, 0, 0], c[i] = [0, 0, 0, 0]
+
+            for (j = 1; j <= 4; j++) {
+                a[i][j] = parseFloat(document.forms[0][4 * i + j - 5].value)
+            }
+            
+        }
+
+        for (j = 1; j <= 4; j++) {
+            b[1][j] = a[1][j];
+
+            b[2][j] = a[1][1] * a[2][j] - a[2][1] * a[1][j];
+
+            b[3][j] = a[1][1] * a[3][j] - a[3][1] * a[1][j];
+
+            c[1][j] = b[1][j];
+
+            c[2][j] = b[2][j];
+
+            c[3][j] = b[2][2] * b[3][j] - b[3][2] * b[2][j]
+        }
+
+        for (i = 1; i <= 3; i++) {
+            for (j = 1; j <= 4; j++) {
+                document.forms[1][4 * i + j - 5].value = b[i][j];
+
+                document.forms[2][4 * i + j - 5].value = c[i][j]
+            }
+
+        }
+    }
+
+    function res() {
+        var x, y, z;
+
+        gauss();
+
+        z = c[3][4] / c[3][3];
+
+        y = (c[2][4] - z * c[2][3]) / c[2][2];
+
+        x = (c[1][4] - y * c[1][2] - z * c[1][3]) / c[1][1];
+
+        //Obtenemos el id del usuario actual del local storage
+        let usuarioLS = obtener_usuario_local_storage();
+
+        usuarioLS.forEach(function (usuario) {
+            idUsuario = usuario.id;
+        });
+        
+        // Mostrar las soluciones en la tabla
+        var tbody = document.getElementById("results-gauss");
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+                        <td>${x}</td>
+                        <td>${y}</td>
+                        <td>${z}</td>
+                      `;
+
+        tbody.appendChild(row);
+
+        // Convertir la matriz en cadena de texto
+        var matrizString = JSON.stringify(a.slice(1));
+        console.log(matrizString)
+
+        //Objeto para guardar datos de gauss 3x3
+        var gaussDato = {
+            IdUsuario: idUsuario,
+            TipoMatriz: '3x3',
+            DatosMatriz: matrizString,
+            X: x,
+            Y: y,
+            Z: z,
+        }
+
+        guardarDatosMetodos(gaussDato);
+    }
+
+    //Función para enviar los datos de los métodos al controlador
+    function guardarDatosMetodos(datosMetodo) {
+        $.ajax({
+            url: '@Url.Action("MetodoGauss2x2", "Home")',
+            type: 'POST',
+            data: {
+                gauss: datosMetodo
+            },
+            success: function (resultado) {
+                if (resultado.result == false) {
+                    console.log("Error al guardar los datos");
+                }
+                else if (resultado.result == true) {
+                    console.log("Datos guardados");
+                }
+            },
+            error: function (error) {
+                console.log(error.state + ' : ' + error.statusText);
+            }
+        });
+    }
+
+    //Función para obtener el usuario del local storage
+    function obtener_usuario_local_storage() {
+        //Para guardar el usuario del local storage
+        let usuario;
+
+        //Verificamos si el local storage es null
+        if (localStorage.getItem('usuario_activo') === null) {
+            //asignamos un array vacío
+            usuario = [];
+        } else {
+            //Asignamos el usuario encontrado
+            usuario = JSON.parse(localStorage.getItem('usuario_activo'));
+        }
+        //Retornamos el usuario del local storage
+        return usuario
+    }
+
+    //Función para limpiar la tabla de resultados
+    function limpiarTabla(id) {
+        var table = document.getElementById(id);
+        var rowCount = table.rows.length;
+
+        for (var i = rowCount - 1; i >= 0; i--) {
+            table.deleteRow(i);
+        }
+    }
+
+    //Función para cerrar sesión
+    function cerrar_sesion() {
+        //Eliminamos el usuario del local storage
+        localStorage.removeItem('usuario_activo');
+
+        //Redirigimos al inicio
+        window.location = "../Home/Login";
+    }
+
+    //Función para exportar a pdf
+    function descargarPDF() {
+        const element = document.getElementById('pdf-content');
+
+        html2pdf()
+            .set({
+                html2canvas: { scale: 4 },
+                jsPDF: { format: 'a4', orientation: 'portrait' }
+            })
+            .from(element)
+            .save('contenido.pdf');
+    }
+</script>

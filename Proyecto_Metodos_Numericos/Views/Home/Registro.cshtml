@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Registro";
+}
+
+<link rel="stylesheet" href="~/Content/Registro.css" />
+
+<div class="espacio"></div>
+
+<div class="container">
+    <h2>Registro</h2>
+    <form id="formulario">
+        <div class="form-group">
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <div class="form-group">
+            <label for="confirmar-password">Repetir Contraseña:</label>
+            <input type="password" id="confirmar-password" name="confirmar-password">
+        </div>
+        <div class="btn-container">
+            <button class="btn" type="button" onclick="registrar()">Crear usuario</button>
+            <button class="btn btn-back" type="button" onclick="location.href='./Login'">Volver</button>
+        </div>
+    </form>
+</div>
+
+<div class="espacio"></div>
+
+<script>
+    function registrar() {
+        var registro = {
+            Correo: $('#email').val(),
+            Clave: $('#password').val(),
+            ConfirmarClave: $('#confirmar-password').val()
+        }
+
+        if (registro.Correo === '' || registro.Clave === '' || registro.ConfirmarClave === '') {
+            alert("No debes de dejar campos vacíos.")
+        } else if (registro.Clave !== registro.ConfirmarClave) {
+            alert("Las contraseñas no coinciden.")
+        }
+        else {
+            $.ajax({
+                url: '@Url.Action("Usuario", "Home")',
+                type: 'POST',
+                data: {
+                    usuario: registro
+                },
+                success: function (resultado) {
+                    //Validamos si recibimos un resultado exitoso
+                    if (resultado.result == true) {
+                        alert("Usuario creado.");
+                    }
+                    //Validamos si ya hay un usuario regisrado con el mismo correo
+                    else if (resultado.result == "Existe") {
+                        alert("Ya hay un usuario con ese correo.")
+                    }
+                    //Validamos si recibimos un resultado no exitoso
+                    else {
+                        alert("Error al crear el usuario.");
+                    }
+
+                    document.getElementById("formulario").reset();
+                },
+                error: function (error) {
+                    console.log(error.state + ' : ' + error.statusText);
+                }
+            });
+        }
+    }
+
+</script>

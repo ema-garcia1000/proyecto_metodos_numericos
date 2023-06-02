@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "Ménu de Métodos";
+}
+
+<link rel="stylesheet" href="~/Content/Index.css" />
+
+<div class="espacio"></div>
+
+<div class="container" id="pdf-content">
+    <div class="left-section">
+        <div class="espacio"></div>
+        <div class="btn-group">
+            <button class="btn-newton" onclick="seleccionMetodo('Newton Raphson')">Método Newton Raphson</button>
+            <button class="btn-secante" onclick="seleccionMetodo('la Secante')">Método la Secante</button>
+            <button class="btn-muller" onclick="seleccionMetodo('Müller')">Método Muller</button>
+            <button class="btn-gauss" onclick="seleccionMetodo('Gauss')">Método Gauss</button>
+        </div>
+        <button class="btn-descargar" type="button" onclick="descargarPDF()">Descargar PDF</button>
+        <button class="btn-salir-rojo" onclick="cerrar_sesion()">Cerrar sesión</button>
+    </div>
+    <div class="right-section">
+        <h2 class="title" id="seleccionMetodo">Ningún método seleccionado</h2>
+
+        <div class="results-section">
+            <h4 class="result-title">Resultados</h4>
+            <table id="tabla-general" style="display:block;">
+                <thead>
+                    <tr>
+                        <th>Iteración</th>
+                        <th>Xi</th>
+                        <th>Ɛa</th>
+                    </tr>
+                </thead>
+                <tbody id="results-table">
+                    <!-- Se mostrará el resultado de cada operación -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="espacio"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+<script>
+    //Para que cada vez que se recargue la pagina valide si hay un usuario logueado
+    document.addEventListener('DOMContentLoaded', () => {
+        //Verificamos si no hay ningun usuario en el local storage
+        if (obtener_usuario_local_storage().length === 0) {
+            //Nos redirigimos a la vista Login
+            window.location = "../Home/Login";
+        }
+    });
+
+    //Función para escoger el método
+    function seleccionMetodo(metodo) {
+        document.getElementById('seleccionMetodo').textContent = "Método de " + metodo;
+
+        // Mostrar la vista correspondiente al método seleccionado
+        if (metodo === 'Newton Raphson') {
+            //Nos redirigimos a la vista NewtonRaphson
+            window.location = "../Home/NewtonRaphson";
+        } else if (metodo === 'la Secante') {
+            //Nos redirigimos a la vista Secante
+            window.location = "../Home/Secante";
+        } else if (metodo === 'Müller') {
+            //Nos redirigimos a la vista Muller
+            window.location = "../Home/Muller";
+        } else if (metodo === 'Gauss') {
+            //Nos redirigimos a la vista Gauss3x3
+            window.location = "../Home/Gauss3x3";
+        }
+    }
+
+    //Función para obtener el usuario del local storage
+    function obtener_usuario_local_storage() {
+        //Para guardar el usuario del local storage
+        let usuario;
+
+        //Verificamos si el local storage es null
+        if (localStorage.getItem('usuario_activo') === null) {
+            //asignamos un array vacío
+            usuario = [];
+        } else {
+            //Asignamos el usuario encontrado
+            usuario = JSON.parse(localStorage.getItem('usuario_activo'));
+        }
+        //Retornamos el usuario del local storage
+        return usuario
+    }
+
+    //Función para cerrar sesión
+    function cerrar_sesion() {
+        //Eliminamos el usuario del local storage
+        localStorage.removeItem('usuario_activo');
+
+        //Redirigimos al inicio
+        window.location = "../Home/Login";
+    }
+
+    //Función para exportar a pdf
+    function descargarPDF() {
+        const element = document.getElementById('pdf-content');
+
+        html2pdf()
+            .set({
+                html2canvas: { scale: 4 },
+                jsPDF: { format: 'a4', orientation: 'portrait' }
+            })
+            .from(element)
+            .save('contenido.pdf');
+    }
+</script>

@@ -1,0 +1,236 @@
+﻿
+@{
+    ViewBag.Title = "Método de Newton Raphson";
+}
+
+<link rel="stylesheet" href="~/Content/Index.css" />
+
+<div class="espacio"></div>
+
+<div class="container" id="pdf-content">
+    <div class="left-section">
+        <div class="espacio"></div>
+        <div class="btn-group">
+            <button class="btn-newton" onclick="seleccionMetodo('Newton Raphson')">Método Newton Raphson</button>
+            <button class="btn-secante" onclick="seleccionMetodo('la Secante')">Método la Secante</button>
+            <button class="btn-muller" onclick="seleccionMetodo('Müller')">Método Muller</button>
+            <button class="btn-gauss" onclick="seleccionMetodo('Gauss')">Método Gauss</button>
+        </div>
+        <button class="btn-descargar" type="button" onclick="descargarPDF()">Descargar PDF</button>
+        <button class="btn-salir-rojo" onclick="cerrar_sesion()">Cerrar sesión</button>
+    </div>
+    <div class="right-section">
+        <h2 class="title">Método de Newton Raphson</h2>
+
+        <div id="newtonRaphson">
+            <form id="formulario1">
+                <div class="form-group">
+                    <label for="ecuacion">Ingrese la ecuación:</label>
+                    <input type="text" id="ecuacion_newton" name="ecuacion" required>
+                </div>
+                <div class="form-group">
+                    <label for="x0">Ingrese el valor inicial x0:</label>
+                    <input type="number" id="x0_newton" name="x0" required>
+                </div>
+                <div class="btn-row">
+                    <button class="btn-calcular" id="btn-calcular" type="button" onclick="calcular()">Calcular</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="results-section">
+            <h4 class="result-title">Resultados</h4>
+            <table id="tabla-general">
+                <thead>
+                    <tr>
+                        <th>Iteración</th>
+                        <th>Xi</th>
+                        <th>Ɛa</th>
+                    </tr>
+                </thead>
+                <tbody id="results-table">
+                    <!-- Se mostrará el resultado de cada operación -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="espacio"></div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+<script>
+    //Para almacenar el id del usuario actual
+    var idUsuario = "";
+
+    //Para que cada vez que se recargue la pagina valide si hay un usuario logueado
+    document.addEventListener('DOMContentLoaded', () => {
+        //Verificamos si no hay ningun usuario en el local storage
+        if (obtener_usuario_local_storage().length === 0) {
+            //Nos redirigimos a la vista Login
+            window.location = "../Home/Login";
+        }
+    });
+
+    //Función para escoger el método
+    function seleccionMetodo(metodo) {
+        // Mostrar la vista correspondiente al método seleccionado
+        if (metodo === 'Newton Raphson') {
+            //Nos redirigimos a la vista NewtonRaphson
+            window.location = "../Home/NewtonRaphson";
+        } else if (metodo === 'la Secante') {
+            //Nos redirigimos a la vista Secante
+            window.location = "../Home/Secante";
+        } else if (metodo === 'Müller') {
+            //Nos redirigimos a la vista Muller
+            window.location = "../Home/Muller";
+        } else if (metodo === 'Gauss') {
+            //Nos redirigimos a la vista Gauss3x3
+            window.location = "../Home/Gauss3x3";
+        }
+    }
+
+    //Función para calcular
+    function calcular() {
+        //Obtenemos el id del usuario actual del local storage
+        let usuarioLS = obtener_usuario_local_storage();
+
+        usuarioLS.forEach(function (usuario) {
+            idUsuario = usuario.id;
+        });
+
+        //Limpiamos las tablas
+        limpiarTabla("results-table");
+
+        //Obtenemos la ecuacion ingresada
+        var ecuacion = document.getElementById('ecuacion_newton').value;
+
+        //Obtenemos el valor de x0
+        var x0 = Number(document.getElementById('x0_newton').value);
+
+        //Pasamos los valores obtenidos a la función para calcular el metodo de newton raphson
+        newton_raphson(ecuacion, x0);
+    }
+
+    //Implementación del método de newton raphson
+    function newton_raphson(ecuacion, x0) {
+        const iterations = 6; //Número de iteraciones definido dentro del código
+
+        const expr = math.parse(ecuacion); //Analizar la ecuación
+
+        let xi = x0; //Valor inicial xi
+        let ea = 100; //Error aproximado inicial
+
+        var table = document.getElementById("results-table");
+
+        for (let i = 0; i < iterations; i++) {
+            const fi = expr.evaluate({ x: xi }); //Evaluar la función en xi
+            const dfi = math.derivative(expr, 'x').evaluate({ x: xi }); //Evaluar la derivada en xi
+
+            const xi1 = xi - fi / dfi; //Calcular el siguiente valor xi+1
+
+            ea = Math.abs((xi1 - xi) / xi1) * 100; //Calcular el error aproximado
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                                <td>${i + 1}</td>
+                                <td>${xi1.toFixed(3)}</td>
+                                <td>${ea.toFixed(3)}</td>
+                            `;
+
+            table.appendChild(row); //Agregar la fila a la tabla de resultados
+
+            //Objeto para guardar datos del newton raphson
+            var newtonDato = {
+                IdUsuario: idUsuario,
+                Ecuacion: ecuacion,
+                X0: x0,
+                Xi: xi1,
+                Ea: ea
+            }
+
+            guardarDatosMetodos(newtonDato);
+
+            if (ea < 0.01) {
+                break; //Salir del bucle si se alcanza la precisión deseada
+            }
+
+            xi = xi1; //Actualizar el valor xi para la siguiente iteración
+        }
+    }
+
+    //Función para enviar los datos de los métodos al controlador
+    function guardarDatosMetodos(datosMetodo) {
+        $.ajax({
+            url: '@Url.Action("MetodoNewtonRaphson", "Home")',
+            type: 'POST',
+            data: {
+                newton: datosMetodo
+            },
+            success: function (resultado) {
+                if (resultado.result == false) {
+                    console.log("Error al guardar los datos");
+                }
+                else if (resultado.result == true) {
+                    console.log("Datos guardados");
+                }
+            },
+            error: function (error) {
+                console.log(error.state + ' : ' + error.statusText);
+            }
+        });
+    }
+
+    //Función para obtener el usuario del local storage
+    function obtener_usuario_local_storage() {
+        //Para guardar el usuario del local storage
+        let usuario;
+
+        //Verificamos si el local storage es null
+        if (localStorage.getItem('usuario_activo') === null) {
+            //asignamos un array vacío
+            usuario = [];
+        } else {
+            //Asignamos el usuario encontrado
+            usuario = JSON.parse(localStorage.getItem('usuario_activo'));
+        }
+        //Retornamos el usuario del local storage
+        return usuario
+    }
+
+    //Función para limpiar la tabla de resultados
+    function limpiarTabla(id) {
+        var table = document.getElementById(id);
+        var rowCount = table.rows.length;
+
+        for (var i = rowCount - 1; i >= 0; i--) {
+            table.deleteRow(i);
+        }
+    }
+
+    //Función para cerrar sesión
+    function cerrar_sesion() {
+        //Eliminamos el usuario del local storage
+        localStorage.removeItem('usuario_activo');
+
+        //Redirigimos al inicio
+        window.location = "../Home/Login";
+    }
+
+    //Función para exportar a pdf
+    function descargarPDF() {
+        const element = document.getElementById('pdf-content');
+
+        html2pdf()
+            .set({
+                html2canvas: { scale: 4 },
+                jsPDF: { format: 'a4', orientation: 'portrait' }
+            })
+            .from(element)
+            .save('contenido.pdf');
+    }
+</script>
