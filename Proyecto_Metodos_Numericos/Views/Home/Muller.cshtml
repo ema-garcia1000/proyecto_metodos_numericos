@@ -144,6 +144,9 @@
 
         const table = document.getElementById("results-table");
 
+        var xi2_arr = []
+        var ea_arr = []
+
         for (let i = 0; i < iterations; i++) {
             const fi2 = expr.evaluate({ x: xi2 }); //Evaluar la función en xi-2
             const fi1 = expr.evaluate({ x: xi1 }); //Evaluar la función en xi-1
@@ -180,18 +183,8 @@
 
             table.appendChild(row); //Agregar la fila a la tabla de resultados
 
-            //Objeto para guardar datos de muller
-            var mullerDato = {
-                IdUsuario: idUsuario,
-                Ecuacion: ecuacion,
-                X0: x0,
-                X1: x1,
-                X2: x2,
-                Xi: xi2_1,
-                Ea: ea
-            }
-
-            guardarDatosMetodos(mullerDato);
+            xi2_arr.push(xi2_1.toFixed(6))
+            ea_arr.push(ea.toFixed(6))
 
             if (ea < 0.01) {
                 break; //Salir del bucle si se alcanza la precisión deseada
@@ -201,6 +194,22 @@
             xi1 = xi; //Actualizar el valor xi-1 para la siguiente iteración
             xi = xi2_1; //Actualizar el valor xi para la siguiente iteración
         }
+
+        var new_xi2 = JSON.stringify(xi2_arr)
+        var new_ea = JSON.stringify(ea_arr)
+
+        //Objeto para guardar datos de muller
+        var mullerDato = {
+            IdUsuario: idUsuario,
+            Ecuacion: ecuacion,
+            X0: x0,
+            X1: x1,
+            X2: x2,
+            Xi: new_xi2,
+            Ea: new_ea
+        }
+
+        guardarDatosMetodos(mullerDato);
     }
 
     //Función para enviar los datos de los métodos al controlador

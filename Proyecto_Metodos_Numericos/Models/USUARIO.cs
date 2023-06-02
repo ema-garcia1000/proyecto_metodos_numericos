@@ -17,10 +17,10 @@ namespace Proyecto_Metodos_Numericos.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public USUARIO()
         {
-            this.MULLER = new HashSet<MULLER>();
             this.GAUSS3X3 = new HashSet<GAUSS3X3>();
             this.NEWTON = new HashSet<NEWTON>();
             this.SECANTE = new HashSet<SECANTE>();
+            this.MULLER = new HashSet<MULLER>();
         }
     
         public decimal IDUSUARIO { get; set; }
@@ -28,12 +28,12 @@ namespace Proyecto_Metodos_Numericos.Models
         public string PASSWORDC { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MULLER> MULLER { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GAUSS3X3> GAUSS3X3 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NEWTON> NEWTON { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SECANTE> SECANTE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MULLER> MULLER { get; set; }
     }
 }

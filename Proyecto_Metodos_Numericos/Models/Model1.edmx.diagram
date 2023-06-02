@@ -5,15 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d12704cf1b31471ebf0d7b1506690b98" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.MULLER" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.USUARIO" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
-        <AssociationConnector Association="Model.SYS_C007449" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Model.GAUSS3X3" Width="1.5" PointX="3" PointY="7" />
         <AssociationConnector Association="Model.SYS_C007510" />
         <EntityTypeShape EntityType="Model.NEWTON" Width="1.5" PointX="3" PointY="3.25" />
         <AssociationConnector Association="Model.SYS_C007526" />
         <EntityTypeShape EntityType="Model.SECANTE" Width="1.5" PointX="3" PointY="16.125" />
         <AssociationConnector Association="Model.SYS_C007544" />
+        <EntityTypeShape EntityType="Model.MULLER" Width="1.5" PointX="3" PointY="11" />
+        <AssociationConnector Association="Model.SYS_C007554" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -20,8 +20,8 @@ namespace Proyecto_Metodos_Numericos.Models
         public decimal X0 { get; set; }
         public decimal X1 { get; set; }
         public decimal X2 { get; set; }
-        public decimal XI { get; set; }
-        public decimal EAA { get; set; }
+        public string XI { get; set; }
+        public string EAA { get; set; }
     
         public virtual USUARIO USUARIO { get; set; }
     }

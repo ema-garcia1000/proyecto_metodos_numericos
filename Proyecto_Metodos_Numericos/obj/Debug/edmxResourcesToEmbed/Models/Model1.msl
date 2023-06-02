@@ -1,20 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities_Metodos">
-    <EntitySetMapping Name="MULLER">
-      <EntityTypeMapping TypeName="Model.MULLER">
-        <MappingFragment StoreEntitySet="MULLER">
-          <ScalarProperty Name="IDMULLER" ColumnName="IDMULLER" />
-          <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
-          <ScalarProperty Name="ECUACION" ColumnName="ECUACION" />
-          <ScalarProperty Name="X0" ColumnName="X0" />
-          <ScalarProperty Name="X1" ColumnName="X1" />
-          <ScalarProperty Name="X2" ColumnName="X2" />
-          <ScalarProperty Name="XI" ColumnName="XI" />
-          <ScalarProperty Name="EAA" ColumnName="EAA" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="USUARIO">
       <EntityTypeMapping TypeName="Model.USUARIO">
         <MappingFragment StoreEntitySet="USUARIO">
@@ -59,6 +45,20 @@
           <ScalarProperty Name="ECUACION" ColumnName="ECUACION" />
           <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
           <ScalarProperty Name="IDSECANTE" ColumnName="IDSECANTE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MULLER">
+      <EntityTypeMapping TypeName="Model.MULLER">
+        <MappingFragment StoreEntitySet="MULLER">
+          <ScalarProperty Name="EAA" ColumnName="EAA" />
+          <ScalarProperty Name="XI" ColumnName="XI" />
+          <ScalarProperty Name="X2" ColumnName="X2" />
+          <ScalarProperty Name="X1" ColumnName="X1" />
+          <ScalarProperty Name="X0" ColumnName="X0" />
+          <ScalarProperty Name="ECUACION" ColumnName="ECUACION" />
+          <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
+          <ScalarProperty Name="IDMULLER" ColumnName="IDMULLER" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
