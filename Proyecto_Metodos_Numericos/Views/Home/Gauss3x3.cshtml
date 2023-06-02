@@ -58,57 +58,57 @@
 
             <form name="sist1">
 
-                <input type="text" size="3">x+
+                <input type="text" size="3" readonly>x+
 
-                <input type="text" size="3">y+
+                <input type="text" size="3" readonly>y+
 
-                <input type="text" size="3">z=
+                <input type="text" size="3" readonly>z=
 
-                <input type="text" size="3"><BR>
+                <input type="text" size="3" readonly><BR>
 
-                <input type="text" size="3">x+
+                <input type="text" size="3" readonly>x+
 
-                <input type="text" size="3">y+
+                <input type="text" size="3" readonly>y+
 
-                <input type="text" size="3">z=
+                <input type="text" size="3" readonly>z=
 
-                <input type="text" size="3"><BR>
+                <input type="text" size="3" readonly><BR>
 
-                <input type="text" size="3">x+
+                <input type="text" size="3" readonly>x+
 
-                <input type="text" size="3">y+
+                <input type="text" size="3" readonly>y+
 
-                <input type="text" size="3">z=
+                <input type="text" size="3" readonly>z=
 
-                <input type="text" size="3"> <BR><BR>
+                <input type="text" size="3" readonly> <BR><BR>
 
             </form>
 
             <form name="sist2">
 
-                <input type="text" size="3">x+
+                <input type="text" size="3" readonly>x+
 
-                <input type="text" size="3">y+
+                <input type="text" size="3" readonly>y+
 
-                <input type="text" size="3">z=
+                <input type="text" size="3" readonly>z=
 
-                <input type="text" size="3"><BR>
+                <input type="text" size="3" readonly><BR>
 
-                <input type="text" size="3">x+
+                <input type="text" size="3" readonly>x+
 
-                <input type="text" size="3">y+
+                <input type="text" size="3" readonly>y+
 
-                <input type="text" size="3">z=
+                <input type="text" size="3" readonly>z=
 
-                <input type="text" size="3"><BR>
+                <input type="text" size="3" readonly><BR>
 
-                <input type="text" size="3">x+
+                <input type="text" size="3" readonly>x+
 
-                <input type="text" size="3">y+
+                <input type="text" size="3" readonly>y+
 
-                <input type="text" size="3">z=
+                <input type="text" size="3" readonly>z=
 
-                <input type="text" size="3">
+                <input type="text" size="3" readonly>
 
                 <BR><BR>
                 <input class="btn-calcular" type="button" value="Resolver" onClick="res()">
@@ -259,7 +259,7 @@
     //Función para enviar los datos de los métodos al controlador
     function guardarDatosMetodos(datosMetodo) {
         $.ajax({
-            url: '@Url.Action("MetodoGauss2x2", "Home")',
+            url: '@Url.Action("MetodoGauss3x3", "Home")',
             type: 'POST',
             data: {
                 gauss: datosMetodo

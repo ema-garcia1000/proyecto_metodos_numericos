@@ -257,8 +257,8 @@ namespace Proyecto_Metodos_Numericos.Controllers
                 //Asignamos los datos a los atributos de la BD
                 nuevoGauss.IDGAUSS = idGauss;
                 nuevoGauss.IDUSUARIO = gauss.IdUsuario;
-                //nuevoGauss.TIPOMATRIZ = gauss.TipoMatriz;
-                //nuevoGauss.DATOSMATRIZ = gauss.DatosMatriz;
+                nuevoGauss.TIPOMATRIZ = gauss.TipoMatriz;
+                nuevoGauss.DATOSMATRIZ = gauss.DatosMatriz;
                 nuevoGauss.X = gauss.X;
                 nuevoGauss.Y = gauss.Y;
                 nuevoGauss.Z = gauss.Z;
