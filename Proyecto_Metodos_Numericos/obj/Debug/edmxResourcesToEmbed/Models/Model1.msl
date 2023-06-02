@@ -15,19 +15,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="SECANTE">
-      <EntityTypeMapping TypeName="Model.SECANTE">
-        <MappingFragment StoreEntitySet="SECANTE">
-          <ScalarProperty Name="IDSECANTE" ColumnName="IDSECANTE" />
-          <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
-          <ScalarProperty Name="ECUACION" ColumnName="ECUACION" />
-          <ScalarProperty Name="X0" ColumnName="X0" />
-          <ScalarProperty Name="X1" ColumnName="X1" />
-          <ScalarProperty Name="XI" ColumnName="XI" />
-          <ScalarProperty Name="EAA" ColumnName="EAA" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="USUARIO">
       <EntityTypeMapping TypeName="Model.USUARIO">
         <MappingFragment StoreEntitySet="USUARIO">
@@ -59,6 +46,19 @@
           <ScalarProperty Name="ECUACION" ColumnName="ECUACION" />
           <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
           <ScalarProperty Name="IDNEWTON" ColumnName="IDNEWTON" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SECANTE">
+      <EntityTypeMapping TypeName="Model.SECANTE">
+        <MappingFragment StoreEntitySet="SECANTE">
+          <ScalarProperty Name="EAA" ColumnName="EAA" />
+          <ScalarProperty Name="XI" ColumnName="XI" />
+          <ScalarProperty Name="X1" ColumnName="X1" />
+          <ScalarProperty Name="X0" ColumnName="X0" />
+          <ScalarProperty Name="ECUACION" ColumnName="ECUACION" />
+          <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
+          <ScalarProperty Name="IDSECANTE" ColumnName="IDSECANTE" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

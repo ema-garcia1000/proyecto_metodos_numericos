@@ -134,7 +134,8 @@
         let ea = 100; //Error aproximado inicial
 
         var table = document.getElementById("results-table");
-
+        var xi2_arr = []
+        var ea_arr = []
         for (let i = 0; i < iterations; i++) {
             const fi0 = expr.evaluate({ x: xi0 }); //Evaluar la función en xi-1
             const fi1 = expr.evaluate({ x: xi1 }); //Evaluar la función en xi
@@ -152,17 +153,10 @@
 
             table.appendChild(row); //Agregar la fila a la tabla de resultados
 
-            //Objeto para guardar datos de la secante
-            var secanteDato = {
-                IdUsuario: idUsuario,
-                Ecuacion: ecuacion,
-                X0: x0,
-                X1: x1,
-                Xi: xi2,
-                Ea: ea
-            }
+            xi2_arr.push(xi2.toFixed(3))
+            ea_arr.push(ea.toFixed(3))
 
-            guardarDatosMetodos(secanteDato);
+           
 
             if (ea < 0.01) {
                 break; //Salir del bucle si se alcanza la precisión deseada
@@ -171,6 +165,21 @@
             xi0 = xi1; //Actualizar el valor xi-1 para la siguiente iteración
             xi1 = xi2; //Actualizar el valor xi para la siguiente iteración
         }
+
+        var new_xi2 = JSON.stringify(xi2_arr)
+        var new_ea = JSON.stringify(ea_arr)
+
+        //Objeto para guardar datos de la secante
+        var secanteDato = {
+            IdUsuario: idUsuario,
+            Ecuacion: ecuacion,
+            X0: x0,
+            X1: x1,
+            Xi: new_xi2,
+            Ea: new_ea
+        }
+
+        guardarDatosMetodos(secanteDato);
     }
 
     //Función para enviar los datos de los métodos al controlador
