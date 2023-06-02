@@ -38,8 +38,8 @@
           <Property Name="IDUSUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ECUACION" Type="varchar2" MaxLength="30" Nullable="false" />
           <Property Name="X0" Type="float" Precision="126" Scale="0" Nullable="false" />
-          <Property Name="XI" Type="float" Precision="126" Scale="0" Nullable="false" />
-          <Property Name="EAA" Type="float" Precision="126" Scale="0" Nullable="false" />
+          <Property Name="XI" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="EAA" Type="varchar2" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="SECANTE">
           <Key>
@@ -61,18 +61,6 @@
           <Property Name="CORREO" Type="varchar2" MaxLength="30" Nullable="false" />
           <Property Name="PASSWORDC" Type="varchar2" MaxLength="30" Nullable="false" />
         </EntityType>
-        <Association Name="SYS_C007430">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
-          <End Role="NEWTON" Type="Self.NEWTON" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="IDUSUARIO" />
-            </Principal>
-            <Dependent Role="NEWTON">
-              <PropertyRef Name="IDUSUARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="SYS_C007439">
           <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
           <End Role="SECANTE" Type="Self.SECANTE" Multiplicity="*" />
@@ -109,16 +97,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SYS_C007526">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+          <End Role="NEWTON" Type="Self.NEWTON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="IDUSUARIO" />
+            </Principal>
+            <Dependent Role="NEWTON">
+              <PropertyRef Name="IDUSUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="GAUSS3X3" EntityType="Self.GAUSS3X3" Schema="EMANUEL" store:Type="Tables" />
           <EntitySet Name="MULLER" EntityType="Self.MULLER" Schema="EMANUEL" store:Type="Tables" />
           <EntitySet Name="NEWTON" EntityType="Self.NEWTON" Schema="EMANUEL" store:Type="Tables" />
           <EntitySet Name="SECANTE" EntityType="Self.SECANTE" Schema="EMANUEL" store:Type="Tables" />
           <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="EMANUEL" store:Type="Tables" />
-          <AssociationSet Name="SYS_C007430" Association="Self.SYS_C007430">
-            <End Role="USUARIO" EntitySet="USUARIO" />
-            <End Role="NEWTON" EntitySet="NEWTON" />
-          </AssociationSet>
           <AssociationSet Name="SYS_C007439" Association="Self.SYS_C007439">
             <End Role="USUARIO" EntitySet="USUARIO" />
             <End Role="SECANTE" EntitySet="SECANTE" />
@@ -130,6 +126,10 @@
           <AssociationSet Name="SYS_C007510" Association="Self.SYS_C007510">
             <End Role="USUARIO" EntitySet="USUARIO" />
             <End Role="GAUSS3X3" EntitySet="GAUSS3X3" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C007526" Association="Self.SYS_C007526">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="NEWTON" EntitySet="NEWTON" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -149,18 +149,6 @@
           <Property Name="XI" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="EAA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <NavigationProperty Name="USUARIO" Relationship="Self.SYS_C007449" FromRole="MULLER" ToRole="USUARIO" />
-        </EntityType>
-        <EntityType Name="NEWTON">
-          <Key>
-            <PropertyRef Name="IDNEWTON" />
-          </Key>
-          <Property Name="IDNEWTON" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="IDUSUARIO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="ECUACION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="X0" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="XI" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="EAA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <NavigationProperty Name="USUARIO" Relationship="Self.SYS_C007430" FromRole="NEWTON" ToRole="USUARIO" />
         </EntityType>
         <EntityType Name="SECANTE">
           <Key>
@@ -183,9 +171,9 @@
           <Property Name="CORREO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PASSWORDC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="MULLER" Relationship="Self.SYS_C007449" FromRole="USUARIO" ToRole="MULLER" />
-          <NavigationProperty Name="NEWTON" Relationship="Self.SYS_C007430" FromRole="USUARIO" ToRole="NEWTON" />
           <NavigationProperty Name="SECANTE" Relationship="Self.SYS_C007439" FromRole="USUARIO" ToRole="SECANTE" />
           <NavigationProperty Name="GAUSS3X3" Relationship="Model.SYS_C007510" FromRole="USUARIO" ToRole="GAUSS3X3" />
+          <NavigationProperty Name="NEWTON" Relationship="Model.SYS_C007526" FromRole="USUARIO" ToRole="NEWTON" />
         </EntityType>
         <Association Name="SYS_C007449">
           <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
@@ -195,18 +183,6 @@
               <PropertyRef Name="IDUSUARIO" />
             </Principal>
             <Dependent Role="MULLER">
-              <PropertyRef Name="IDUSUARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SYS_C007430">
-          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
-          <End Role="NEWTON" Type="Self.NEWTON" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="USUARIO">
-              <PropertyRef Name="IDUSUARIO" />
-            </Principal>
-            <Dependent Role="NEWTON">
               <PropertyRef Name="IDUSUARIO" />
             </Dependent>
           </ReferentialConstraint>
@@ -225,16 +201,11 @@
         </Association>
         <EntityContainer Name="Entities_Metodos" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="MULLER" EntityType="Self.MULLER" />
-          <EntitySet Name="NEWTON" EntityType="Self.NEWTON" />
           <EntitySet Name="SECANTE" EntityType="Self.SECANTE" />
           <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
           <AssociationSet Name="SYS_C007449" Association="Self.SYS_C007449">
             <End Role="USUARIO" EntitySet="USUARIO" />
             <End Role="MULLER" EntitySet="MULLER" />
-          </AssociationSet>
-          <AssociationSet Name="SYS_C007430" Association="Self.SYS_C007430">
-            <End Role="USUARIO" EntitySet="USUARIO" />
-            <End Role="NEWTON" EntitySet="NEWTON" />
           </AssociationSet>
           <AssociationSet Name="SYS_C007439" Association="Self.SYS_C007439">
             <End Role="USUARIO" EntitySet="USUARIO" />
@@ -244,6 +215,11 @@
           <AssociationSet Name="SYS_C007510" Association="Model.SYS_C007510">
             <End Role="USUARIO" EntitySet="USUARIO" />
             <End Role="GAUSS3X3" EntitySet="GAUSS3X3" />
+          </AssociationSet>
+          <EntitySet Name="NEWTON" EntityType="Model.NEWTON" />
+          <AssociationSet Name="SYS_C007526" Association="Model.SYS_C007526">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="NEWTON" EntitySet="NEWTON" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="GAUSS3X3">
@@ -271,6 +247,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="NEWTON">
+          <Key>
+            <PropertyRef Name="IDNEWTON" />
+          </Key>
+          <Property Name="IDNEWTON" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="IDUSUARIO" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="ECUACION" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="X0" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="XI" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EAA" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="USUARIO" Relationship="Model.SYS_C007526" FromRole="NEWTON" ToRole="USUARIO" />
+        </EntityType>
+        <Association Name="SYS_C007526">
+          <End Type="Model.USUARIO" Role="USUARIO" Multiplicity="1" />
+          <End Type="Model.NEWTON" Role="NEWTON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="IDUSUARIO" />
+            </Principal>
+            <Dependent Role="NEWTON">
+              <PropertyRef Name="IDUSUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -286,18 +286,6 @@
                 <ScalarProperty Name="X0" ColumnName="X0" />
                 <ScalarProperty Name="X1" ColumnName="X1" />
                 <ScalarProperty Name="X2" ColumnName="X2" />
-                <ScalarProperty Name="XI" ColumnName="XI" />
-                <ScalarProperty Name="EAA" ColumnName="EAA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NEWTON">
-            <EntityTypeMapping TypeName="Model.NEWTON">
-              <MappingFragment StoreEntitySet="NEWTON">
-                <ScalarProperty Name="IDNEWTON" ColumnName="IDNEWTON" />
-                <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
-                <ScalarProperty Name="ECUACION" ColumnName="ECUACION" />
-                <ScalarProperty Name="X0" ColumnName="X0" />
                 <ScalarProperty Name="XI" ColumnName="XI" />
                 <ScalarProperty Name="EAA" ColumnName="EAA" />
               </MappingFragment>
@@ -335,6 +323,18 @@
                 <ScalarProperty Name="TIPOMATRIZ" ColumnName="TIPOMATRIZ" />
                 <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
                 <ScalarProperty Name="IDGAUSS" ColumnName="IDGAUSS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NEWTON">
+            <EntityTypeMapping TypeName="Model.NEWTON">
+              <MappingFragment StoreEntitySet="NEWTON">
+                <ScalarProperty Name="EAA" ColumnName="EAA" />
+                <ScalarProperty Name="XI" ColumnName="XI" />
+                <ScalarProperty Name="X0" ColumnName="X0" />
+                <ScalarProperty Name="ECUACION" ColumnName="ECUACION" />
+                <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
+                <ScalarProperty Name="IDNEWTON" ColumnName="IDNEWTON" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

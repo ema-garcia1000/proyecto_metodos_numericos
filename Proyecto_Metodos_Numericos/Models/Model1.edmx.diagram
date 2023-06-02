@@ -6,14 +6,14 @@
     <edmx:Diagrams>
       <Diagram DiagramId="d12704cf1b31471ebf0d7b1506690b98" Name="Diagram1">
         <EntityTypeShape EntityType="Model.MULLER" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.NEWTON" Width="1.5" PointX="3" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.SECANTE" Width="1.5" PointX="3" PointY="18.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.USUARIO" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
         <AssociationConnector Association="Model.SYS_C007449" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.SYS_C007430" ManuallyRouted="false" />
         <AssociationConnector Association="Model.SYS_C007439" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Model.GAUSS3X3" Width="1.5" PointX="3" PointY="7" />
         <AssociationConnector Association="Model.SYS_C007510" />
+        <EntityTypeShape EntityType="Model.NEWTON" Width="1.5" PointX="3" PointY="3.25" />
+        <AssociationConnector Association="Model.SYS_C007526" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

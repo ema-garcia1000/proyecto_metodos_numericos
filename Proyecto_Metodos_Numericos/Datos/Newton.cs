@@ -11,7 +11,7 @@ namespace Proyecto_Metodos_Numericos.Datos
         public decimal IdUsuario { get; set; }
         public string Ecuacion { get; set; }
         public decimal X0 { get; set; }
-        public decimal Xi { get; set; }
-        public decimal Ea { get; set; }
+        public string Xi { get; set; }
+        public string Ea { get; set; }
     }
 }

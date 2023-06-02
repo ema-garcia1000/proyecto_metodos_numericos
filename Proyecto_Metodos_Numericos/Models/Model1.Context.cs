@@ -26,9 +26,9 @@ namespace Proyecto_Metodos_Numericos.Models
         }
     
         public virtual DbSet<MULLER> MULLER { get; set; }
-        public virtual DbSet<NEWTON> NEWTON { get; set; }
         public virtual DbSet<SECANTE> SECANTE { get; set; }
         public virtual DbSet<USUARIO> USUARIO { get; set; }
         public virtual DbSet<GAUSS3X3> GAUSS3X3 { get; set; }
+        public virtual DbSet<NEWTON> NEWTON { get; set; }
     }
 }

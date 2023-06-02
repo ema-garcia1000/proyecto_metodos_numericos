@@ -33,8 +33,8 @@
     <Property Name="IDUSUARIO" Type="number" Precision="38" Scale="0" Nullable="false" />
     <Property Name="ECUACION" Type="varchar2" MaxLength="30" Nullable="false" />
     <Property Name="X0" Type="float" Precision="126" Scale="0" Nullable="false" />
-    <Property Name="XI" Type="float" Precision="126" Scale="0" Nullable="false" />
-    <Property Name="EAA" Type="float" Precision="126" Scale="0" Nullable="false" />
+    <Property Name="XI" Type="varchar2" MaxLength="100" Nullable="false" />
+    <Property Name="EAA" Type="varchar2" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="SECANTE">
     <Key>
@@ -56,18 +56,6 @@
     <Property Name="CORREO" Type="varchar2" MaxLength="30" Nullable="false" />
     <Property Name="PASSWORDC" Type="varchar2" MaxLength="30" Nullable="false" />
   </EntityType>
-  <Association Name="SYS_C007430">
-    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
-    <End Role="NEWTON" Type="Self.NEWTON" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="USUARIO">
-        <PropertyRef Name="IDUSUARIO" />
-      </Principal>
-      <Dependent Role="NEWTON">
-        <PropertyRef Name="IDUSUARIO" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="SYS_C007439">
     <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
     <End Role="SECANTE" Type="Self.SECANTE" Multiplicity="*" />
@@ -104,16 +92,24 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="SYS_C007526">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="NEWTON" Type="Self.NEWTON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="IDUSUARIO" />
+      </Principal>
+      <Dependent Role="NEWTON">
+        <PropertyRef Name="IDUSUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="ModelStoreContainer">
     <EntitySet Name="GAUSS3X3" EntityType="Self.GAUSS3X3" Schema="EMANUEL" store:Type="Tables" />
     <EntitySet Name="MULLER" EntityType="Self.MULLER" Schema="EMANUEL" store:Type="Tables" />
     <EntitySet Name="NEWTON" EntityType="Self.NEWTON" Schema="EMANUEL" store:Type="Tables" />
     <EntitySet Name="SECANTE" EntityType="Self.SECANTE" Schema="EMANUEL" store:Type="Tables" />
     <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="EMANUEL" store:Type="Tables" />
-    <AssociationSet Name="SYS_C007430" Association="Self.SYS_C007430">
-      <End Role="USUARIO" EntitySet="USUARIO" />
-      <End Role="NEWTON" EntitySet="NEWTON" />
-    </AssociationSet>
     <AssociationSet Name="SYS_C007439" Association="Self.SYS_C007439">
       <End Role="USUARIO" EntitySet="USUARIO" />
       <End Role="SECANTE" EntitySet="SECANTE" />
@@ -125,6 +121,10 @@
     <AssociationSet Name="SYS_C007510" Association="Self.SYS_C007510">
       <End Role="USUARIO" EntitySet="USUARIO" />
       <End Role="GAUSS3X3" EntitySet="GAUSS3X3" />
+    </AssociationSet>
+    <AssociationSet Name="SYS_C007526" Association="Self.SYS_C007526">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="NEWTON" EntitySet="NEWTON" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

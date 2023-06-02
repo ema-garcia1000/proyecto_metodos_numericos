@@ -127,6 +127,10 @@
 
         var table = document.getElementById("results-table");
 
+        var xii_arr = []
+
+        var ea_arr = []
+
         for (let i = 0; i < iterations; i++) {
             const fi = expr.evaluate({ x: xi }); //Evaluar la función en xi
             const dfi = math.derivative(expr, 'x').evaluate({ x: xi }); //Evaluar la derivada en xi
@@ -144,16 +148,8 @@
 
             table.appendChild(row); //Agregar la fila a la tabla de resultados
 
-            //Objeto para guardar datos del newton raphson
-            var newtonDato = {
-                IdUsuario: idUsuario,
-                Ecuacion: ecuacion,
-                X0: x0,
-                Xi: xi1,
-                Ea: ea
-            }
-
-            guardarDatosMetodos(newtonDato);
+            xii_arr.push(xi1.toFixed(3))
+            ea_arr.push(ea.toFixed(3))
 
             if (ea < 0.01) {
                 break; //Salir del bucle si se alcanza la precisión deseada
@@ -161,6 +157,23 @@
 
             xi = xi1; //Actualizar el valor xi para la siguiente iteración
         }
+
+        var new_xii = JSON.stringify(xii_arr)
+        var new_ea = JSON.stringify(ea_arr)
+
+        console.log(new_xii)
+        console.log(new_ea)
+
+        //Objeto para guardar datos del newton raphson
+        var newtonDato = {
+            IdUsuario: idUsuario,
+            Ecuacion: ecuacion,
+            X0: x0,
+            Xi: new_xii,
+            Ea: new_ea
+        }
+
+        guardarDatosMetodos(newtonDato);
     }
 
     //Función para enviar los datos de los métodos al controlador
